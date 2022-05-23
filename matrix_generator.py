@@ -1,7 +1,7 @@
 import numpy as np  
 
 def grid_generator(size):
-# random is a function, doing random sampling in numpy.
+# grid generation with obsatcels, advanced feature
 # basic_grid_cost = np.random.randint(1,2,(n,n))
 
 # Basic grid generation with default cost value 1
@@ -19,6 +19,6 @@ def grid_generator(size):
     basic_grid_cost[0][size-1] = 1
 
     return basic_grid_cost
-# the array will be having  elements. TESTING
+# the array will be having n elements. TESTING
 # print(basic_grid_cost)
 

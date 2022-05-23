@@ -17,7 +17,8 @@ def grid_generator(size):
 # manual correction for starting position, for manufacturing reassons
     basic_grid_cost[0][0] = 1
     basic_grid_cost[0][size-1] = 1
-
+    basic_grid_cost[size-1][size-1] = 0
+    basic_grid_cost[size-1][0] = 0
     return basic_grid_cost
 # the array will be having n elements. TESTING
 # print(basic_grid_cost)

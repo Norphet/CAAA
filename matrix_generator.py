@@ -1,3 +1,4 @@
+# This function will generate the base grid network, and assoicated costs, and obstacle tile
 import numpy as np  
 
 def grid_generator(size):
@@ -5,7 +6,7 @@ def grid_generator(size):
 # basic_grid_cost = np.random.randint(1,2,(n,n))
 
 # Basic grid generation with default cost value 1
-    basic_grid_cost= np.ones((size,size))
+    basic_grid_cost= np.ones(size,size)
 
 # obstacle generation at borders.
     for i in range(size):

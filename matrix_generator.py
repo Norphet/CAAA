@@ -1,26 +1,51 @@
 # This function will generate the base grid network, and assoicated costs, and obstacle tile
 import numpy as np  
 
-def grid_generator(size):
-# grid generation with obsatcels, advanced feature
-# basic_grid_cost = np.random.randint(1,2,(n,n))
+def grid_generator_obstacles(size):
+    # grid generation with obsatcels, advanced feature
+    # basic_grid_cost = np.random.randint(1,2,(n,n))
 
-# Basic grid generation with default cost value 1
-    basic_grid_cost= np.ones(size,size)
+    # Basic grid generation with default cost value 1
+    basic_grid_cost= np.ones((size+2,size+2))
 
-# obstacle generation at borders.
-    for i in range(size):
-        for j in range(size):
-            if  i==(size-1):
+    # obstacle generation at borders.
+    for i in range(size+2):
+        for j in range(size+2):
+            if  i==(size):
                 basic_grid_cost[i][j]=np.random.randint(0,2)
-            elif j==0 or j==(size-1):
+            elif j==1 or j==(size):
                 basic_grid_cost[i][j]=np.random.randint(0,2)
-# manual correction for starting position, for manufacturing reassons
-    basic_grid_cost[0][0] = 1
-    basic_grid_cost[0][size-1] = 1
-    basic_grid_cost[size-1][size-1] = 0
-    basic_grid_cost[size-1][0] = 0
+            elif i==(size+1) or i==(0): 
+                basic_grid_cost[i][j]=0   
+            elif j==0 or j==(size+1):
+                basic_grid_cost[i][j]=0    
+    # manual correction for starting position, for manufacturing reassons
+    basic_grid_cost[1][1] = 1
+    basic_grid_cost[1][size] = 1
+    basic_grid_cost[size][size] = 0
+    basic_grid_cost[size][1] = 0
+    basic_grid_cost[0][1] = 0
+    basic_grid_cost[1][0] = 0
+    basic_grid_cost[0][size] = 0
+    basic_grid_cost[1][size+1] = 0
+    basic_grid_cost[size][0] = 0
+    basic_grid_cost[size+1][1] = 0
+    basic_grid_cost[size][size+1] = 0
+    basic_grid_cost[size+1][size] = 0
     return basic_grid_cost
-# the array will be having n elements. TESTING
-# print(basic_grid_cost)
 
+def grid_generator(size):
+    # grid generation with obsatcels, advanced feature
+    # basic_grid_cost = np.random.randint(1,2,(n,n))
+
+    # Basic grid generation with default cost value 1
+    basic_grid_cost= np.ones((size+2,size+2))
+
+    # obstacle generation at borders.
+    for i in range(size+2):
+        for j in range(size+2):
+            if i==(size+1) or i==(0): 
+                basic_grid_cost[i][j]=0   
+            elif j==0 or j==(size+1):
+                basic_grid_cost[i][j]=0    
+    return basic_grid_cost

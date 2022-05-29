@@ -31,6 +31,6 @@ print('Indexing matrix for the node identification: \n',index_matrix)
 graf=validneighbours(index_matrix, matrix, cell_type)
 print('Converted graph logic, showcasing every avaliable route from every cell:\n',graf) 
   
-# Hamilton path calculating a manufacturable cell configuration                           
+# Hamilton path calculating a manufacturable cell configuration with set starting point                           
 path = hamilton(graf, index_matrix[1][1])
 print('Our solution:\n',path)

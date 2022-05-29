@@ -1,9 +1,6 @@
-from matrix_generator import matrix_generator_obstacles, matrix_generator, indexmatrix
-from hamilton import hamilton
-
-from pathfinding.core.diagonal_movement import DiagonalMovement
-from pathfinding.core.grid import Grid
-from pathfinding.finder.a_star import AStarFinder
+from Functions.matrix_generator import matrix_generator_obstacles, matrix_generator, indexmatrix
+from Functions.hamilton import hamilton
+from Functions.graph_converter import validneighbours
 
 #User inputs
 size=input('Please enter the Y value for the game grid, size(Y,Y)\n')
@@ -22,50 +19,18 @@ while matrix_type not in ("Yes", "No"):
 cell_type = None 
 while cell_type not in ("Rhombus", "Hexagon"): 
     cell_type=input('Please define the type of cell we are working with: \nRhombus\nHexagon\n ') 
-    if cell_type == "Hexagon": 
-            finder = AStarFinder(diagonal_movement=DiagonalMovement.always) 
-    elif cell_type == "Rhombus": 
-            finder = AStarFinder(diagonal_movement=DiagonalMovement.never) 
-    else: 
-        print("Please enter Rhombus or Hexagon.") 
 
-#Main Algorithm
-print(matrix)
+# Main Algorithm
+print('The requested gaming space:\n',matrix)
 
-grid = Grid(matrix=matrix)
+# Creating an index matrix for the hamilton path
 index_matrix=indexmatrix(matrix)
+print('Indexing matrix for the node identification: \n',index_matrix)
 
-print(index_matrix)
-
-start = grid.node(1, 1)
-end = grid.node(size,size)
-
-graf = {} 
-
-for x in range(grid.width):
-#        print("X:"+str(x))                     TEST
-        for y in range(grid.height):
-#                print("Y:"+str(y))             TEST
-                validPath=set()
-                
-                if matrix[x][y]!=0:                        
-                        if matrix[x-1][y]!=0:
-                                validPath.add(int(index_matrix[x-1][y]))
-                        if matrix[x][y+1]!=0:
-                                validPath.add(int(index_matrix[x][y+1]))
-                        if matrix[x+1][y]!=0:
-                                validPath.add(int(index_matrix[x+1][y]))
-                        if matrix[x][y-1]!=0:
-                                validPath.add(int(index_matrix[x][y-1]))
-                if (len(validPath) != 0):
-                        graf[int(index_matrix[x][y])] = validPath
-
-print(graf)  
-                             
-path = hamilton(graf, 6)
-
-#path, runs = finder.find_path(start, end, grid)
-
-#print('operations:', runs, 'path length:', len(path))
-#print(grid.grid_str(path=path, start=start, end=end))
-print(path)
+# Convert our matrix and index matrix into a graph + set form for the hamilton algorithm
+graf=validneighbours(index_matrix, matrix, cell_type)
+print('Converted graph logic, showcasing every avaliable route from every cell:\n',graf) 
+  
+# Hamilton path calculating a manufacturable cell configuration                           
+path = hamilton(graf, index_matrix[1][1])
+print('Our solution:\n',path)

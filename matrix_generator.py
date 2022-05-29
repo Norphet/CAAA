@@ -1,7 +1,16 @@
 # This function will generate the base grid network, and assoicated costs, and obstacle tile
 import numpy as np  
 
-def grid_generator_obstacles(size):
+def indexmatrix(matrix):
+    result=np.ones(np.shape(matrix))
+    counter=0
+    for x in range(len(matrix)):
+        for y in range(len(matrix)):
+            result[x][y]=counter   
+            counter=counter+1
+    return result
+
+def matrix_generator_obstacles(size):
     # grid generation with obsatcels, advanced feature
     # basic_grid_cost = np.random.randint(1,2,(n,n))
 
@@ -34,7 +43,7 @@ def grid_generator_obstacles(size):
     basic_grid_cost[size+1][size] = 0
     return basic_grid_cost
 
-def grid_generator(size):
+def matrix_generator(size):
     # grid generation with obsatcels, advanced feature
     # basic_grid_cost = np.random.randint(1,2,(n,n))
 
